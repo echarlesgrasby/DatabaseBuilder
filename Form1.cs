@@ -1,7 +1,10 @@
 namespace DatabaseBuilder
 {
+
     public partial class Form1 : Form
     {
+        List<String> pubFiles = new List<String>();
+
         public Form1()
         {
             InitializeComponent();
@@ -27,6 +30,108 @@ namespace DatabaseBuilder
             MessageBox.Show("DatabaseBuilder Application\nVersion: v0.1\nAuthor: Eric C. Grasby, MSIQ\n\n" +
                             "This application is built in support of a dissertation (A Domain-Specific Language" +
                             "Approach to Monitoring and Surveillance Within Wholesale Electricity Markets)");
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnFetchFileListings_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Base path is: " + txtBasePath.Text.Trim());
+            List<String> directories = FolderUtilities.GetAllFileDirectories(txtBasePath.Text.Trim());
+            string output = string.Empty;
+            foreach (String directory in directories)
+            {
+                output += directory + "\n";
+            }
+            //MessageBox.Show(output);
+
+            this.pubFiles = FolderUtilities.GetAllPublicCsvFiles();
+            this.fillFolderListing();
+
+            /* Clean up the static FolderUtilities class */
+            FolderUtilities.dirs.Clear();
+            FolderUtilities.files.Clear();
+
+
+        }
+
+        private void fillFolderListing()
+        {
+            try
+            {
+                tbPublicFileListing.UseWaitCursor = true;
+                var files2List = this.pubFiles.Select(f => new FileItem
+                {
+                    FileName = Path.GetFileName(f),
+                    FullPath = f
+                }).ToList();
+
+
+                tbPublicFileListing.DataSource = files2List;
+                tbPublicFileListing.AutoResizeColumns();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            finally
+            {
+                tbPublicFileListing.UseWaitCursor = false;
+            }
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnListBronzeFiles_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("List Bronze files..");
+        }
+
+        private void btnRebuildBronzeLayer_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Rebuilding Bronze layer..");
+        }
+
+        private void btnListSilverFiles_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("List Silver files..");
+        }
+
+        private void btnRebuildSilverLayer_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Rebuilding Silver layer..");
+        }
+
+        private void btnListGoldFiles_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("List Gold files..");
+        }
+
+        private void btnRebuildGoldLayer_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Rebuilding Gold layer..");
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
