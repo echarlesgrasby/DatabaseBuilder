@@ -57,10 +57,10 @@ namespace DatabaseBuilder
             tbFiles = new TabPage();
             tbPublicFileListing = new DataGridView();
             tbEia860Files = new TabPage();
-            label4 = new Label();
             tbWeatherFiles = new TabPage();
+            label5 = new Label();
             btnFetchFileListings = new Button();
-            txtBasePath = new TextBox();
+            txtBasePathSpp = new TextBox();
             panel1 = new Panel();
             grbGoldLayer = new GroupBox();
             btnRebuildGoldLayer = new Button();
@@ -78,8 +78,9 @@ namespace DatabaseBuilder
             txtBasePathBronze = new TextBox();
             label1 = new Label();
             grbRawLayer = new GroupBox();
+            txtBasePathEia860 = new TextBox();
             lblBaseDir = new Label();
-            label5 = new Label();
+            tbEia860FileListing = new DataGridView();
             menuStrip1.SuspendLayout();
             tbControl.SuspendLayout();
             tbFiles.SuspendLayout();
@@ -91,6 +92,7 @@ namespace DatabaseBuilder
             grbSilverLayer.SuspendLayout();
             grbBronzeLayer.SuspendLayout();
             grbRawLayer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tbEia860FileListing).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -178,7 +180,7 @@ namespace DatabaseBuilder
             // 
             // tbEia860Files
             // 
-            tbEia860Files.Controls.Add(label4);
+            tbEia860Files.Controls.Add(tbEia860FileListing);
             tbEia860Files.Location = new Point(4, 24);
             tbEia860Files.Name = "tbEia860Files";
             tbEia860Files.Padding = new Padding(3);
@@ -186,15 +188,6 @@ namespace DatabaseBuilder
             tbEia860Files.TabIndex = 1;
             tbEia860Files.Text = "EIA 860 Files";
             tbEia860Files.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(9, 23);
-            label4.Name = "label4";
-            label4.Size = new Size(192, 15);
-            label4.TabIndex = 0;
-            label4.Text = "EIA 860 Files should be listed here...";
             // 
             // tbWeatherFiles
             // 
@@ -207,6 +200,15 @@ namespace DatabaseBuilder
             tbWeatherFiles.Text = "Weather Data (SPP)";
             tbWeatherFiles.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(20, 20);
+            label5.Name = "label5";
+            label5.Size = new Size(332, 15);
+            label5.TabIndex = 0;
+            label5.Text = "Weather Data covering the SPP footprint should be listed here";
+            // 
             // btnFetchFileListings
             // 
             btnFetchFileListings.ForeColor = SystemColors.ActiveCaptionText;
@@ -218,13 +220,13 @@ namespace DatabaseBuilder
             btnFetchFileListings.UseVisualStyleBackColor = true;
             btnFetchFileListings.Click += btnFetchFileListings_Click;
             // 
-            // txtBasePath
+            // txtBasePathSpp
             // 
-            txtBasePath.Location = new Point(6, 63);
-            txtBasePath.Name = "txtBasePath";
-            txtBasePath.Size = new Size(268, 23);
-            txtBasePath.TabIndex = 1;
-            txtBasePath.Text = "D:\\pub_data_archive\\raw\r\n";
+            txtBasePathSpp.Location = new Point(6, 63);
+            txtBasePathSpp.Name = "txtBasePathSpp";
+            txtBasePathSpp.Size = new Size(268, 23);
+            txtBasePathSpp.TabIndex = 1;
+            txtBasePathSpp.Text = "D:\\pub_data_archive\\raw\r\n";
             // 
             // panel1
             // 
@@ -410,8 +412,9 @@ namespace DatabaseBuilder
             // grbRawLayer
             // 
             grbRawLayer.BackColor = Color.Azure;
+            grbRawLayer.Controls.Add(txtBasePathEia860);
             grbRawLayer.Controls.Add(lblBaseDir);
-            grbRawLayer.Controls.Add(txtBasePath);
+            grbRawLayer.Controls.Add(txtBasePathSpp);
             grbRawLayer.Controls.Add(btnFetchFileListings);
             grbRawLayer.ForeColor = SystemColors.ActiveCaptionText;
             grbRawLayer.Location = new Point(7, 12);
@@ -422,6 +425,14 @@ namespace DatabaseBuilder
             grbRawLayer.Text = "Source Raw Layer";
             grbRawLayer.Enter += groupBox1_Enter;
             // 
+            // txtBasePathEia860
+            // 
+            txtBasePathEia860.Location = new Point(6, 93);
+            txtBasePathEia860.Name = "txtBasePathEia860";
+            txtBasePathEia860.Size = new Size(268, 23);
+            txtBasePathEia860.TabIndex = 3;
+            txtBasePathEia860.Text = "D:\\pub_data_archive\\raw_eia860\r\n";
+            // 
             // lblBaseDir
             // 
             lblBaseDir.AutoSize = true;
@@ -430,18 +441,20 @@ namespace DatabaseBuilder
             lblBaseDir.ForeColor = SystemColors.ActiveCaptionText;
             lblBaseDir.Location = new Point(6, 29);
             lblBaseDir.Name = "lblBaseDir";
-            lblBaseDir.Size = new Size(183, 21);
+            lblBaseDir.Size = new Size(194, 21);
             lblBaseDir.TabIndex = 2;
-            lblBaseDir.Text = "Base Archive Directory";
+            lblBaseDir.Text = "Base Archive Directories";
+            lblBaseDir.Click += lblBaseDir_Click;
             // 
-            // label5
+            // tbEia860FileListing
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(20, 20);
-            label5.Name = "label5";
-            label5.Size = new Size(332, 15);
-            label5.TabIndex = 0;
-            label5.Text = "Weather Data covering the SPP footprint should be listed here";
+            tbEia860FileListing.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tbEia860FileListing.Dock = DockStyle.Fill;
+            tbEia860FileListing.Location = new Point(3, 3);
+            tbEia860FileListing.Name = "tbEia860FileListing";
+            tbEia860FileListing.ReadOnly = true;
+            tbEia860FileListing.Size = new Size(1189, 446);
+            tbEia860FileListing.TabIndex = 1;
             // 
             // Form1
             // 
@@ -461,7 +474,6 @@ namespace DatabaseBuilder
             tbFiles.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)tbPublicFileListing).EndInit();
             tbEia860Files.ResumeLayout(false);
-            tbEia860Files.PerformLayout();
             tbWeatherFiles.ResumeLayout(false);
             tbWeatherFiles.PerformLayout();
             panel1.ResumeLayout(false);
@@ -473,6 +485,7 @@ namespace DatabaseBuilder
             grbBronzeLayer.PerformLayout();
             grbRawLayer.ResumeLayout(false);
             grbRawLayer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tbEia860FileListing).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -487,7 +500,7 @@ namespace DatabaseBuilder
         private TabControl tbControl;
         private TabPage tbFiles;
         private Button btnFetchFileListings;
-        private TextBox txtBasePath;
+        private TextBox txtBasePathSpp;
         private DataGridView tbPublicFileListing;
         private TabPage tbEia860Files;
         private TabPage tbWeatherFiles;
@@ -511,7 +524,8 @@ namespace DatabaseBuilder
         private Button btnRebuildBronzeLayer;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem exitToolStripMenuItem;
-        private Label label4;
         private Label label5;
+        private TextBox txtBasePathEia860;
+        private DataGridView tbEia860FileListing;
     }
 }

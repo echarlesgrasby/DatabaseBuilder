@@ -22,9 +22,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Parquet;
+using Parquet.Data;
+using Parquet.Schema;
+
 namespace DatabaseBuilder
 {
-    internal class BronzeParquetBuilder
+
+
+    class BronzeParquetBuilder
     {
+        public BronzeParquetBuilder() { }
+        
+        public void test()
+        {
+            //var plantId = new DataField<int>("plant_id");
+        }
+
     }
-}
+ }

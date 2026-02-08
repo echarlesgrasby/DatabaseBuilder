@@ -51,12 +51,13 @@ public static class FolderUtilities
         return dirs;
     }
 
-    public static List<String> GetAllPublicCsvFiles(List<String> dirs)
+    public static List<String> GetAllPublicFiles(List<String> dirs, string extensionMask)
     {
         List<String> files = new List<String>();
         foreach(String directory in dirs)
         {
-            List<String> pubFiles = Directory.GetFiles(directory, "*.CSV").ToList();
+            List<String> pubFiles = Directory.GetFiles(directory)
+                .Where(ff => ff.EndsWith(extensionMask)).ToList();
             files.AddRange(pubFiles);
         }
 

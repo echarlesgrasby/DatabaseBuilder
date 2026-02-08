@@ -21,7 +21,8 @@ namespace DatabaseBuilder
 
     public partial class Form1 : Form
     {
-        List<String> pubFiles = new List<String>();
+        List<String> pubFilesSpp = new List<String>();
+        List<String> pubFilesEia860 = new List<String>();
 
         public Form1()
         {
@@ -62,31 +63,60 @@ namespace DatabaseBuilder
 
         private void btnFetchFileListings_Click(object sender, EventArgs e)
         {
-            List<String> directories = FolderUtilities.GetAllFileDirectories(txtBasePath.Text.Trim());
-            string output = string.Empty;
-            foreach (String directory in directories)
+            List<String> directoriesSpp = FolderUtilities.GetAllFileDirectories(txtBasePathSpp.Text.Trim());
+            List<String> directoriesEia860 = FolderUtilities.GetAllFileDirectories(txtBasePathEia860.Text.Trim());
+
+            string outputSpp = string.Empty;
+            foreach (String directory in directoriesSpp)
             {
-                output += directory + "\n";
+                outputSpp += directory + "\n";
             }
 
-            this.pubFiles = FolderUtilities.GetAllPublicCsvFiles(directories);
-            this.fillFolderListing();
+            string outputEia860 = string.Empty;
+            foreach (String directory in directoriesEia860)
+            {
+                outputEia860 += directory + "\n";
+            }
+
+            this.pubFilesSpp = FolderUtilities.GetAllPublicFiles(directoriesSpp, ".csv");
+            this.pubFilesEia860 = FolderUtilities.GetAllPublicFiles(directoriesEia860, "xlsx");
+
+            this.fillFolderListing(pubFilesSpp, "SPP_PUB");
+            this.fillFolderListing(pubFilesEia860, "EIA_860");
         }
 
-        private void fillFolderListing()
+        private void fillFolderListing(List<String> listOfFiles, String gridToFill)
         {
+
             try
             {
-                tbPublicFileListing.UseWaitCursor = true;
-                var files2List = this.pubFiles.Select(f => new FileItem
+                switch (gridToFill)
                 {
-                    FileName = Path.GetFileName(f),
-                    FullPath = f
-                }).ToList();
+                    case "SPP_PUB":
+                        tbPublicFileListing.UseWaitCursor = true;
+                        var sppPubFiles2List = listOfFiles.Select(f => new FileItem
+                        {
+                            FileName = Path.GetFileName(f),
+                            FullPath = f
+                        }).ToList();
+                        tbPublicFileListing.DataSource = sppPubFiles2List;
+                        tbPublicFileListing.AutoResizeColumns();
+                        break;
 
+                    case "EIA_860":
+                        tbEia860Files.UseWaitCursor = true;
+                        var eia860Files2List = listOfFiles.Select(f => new FileItem
+                        {
+                            FileName = Path.GetFileName(f),
+                            FullPath = f
+                        }).ToList();
+                        tbEia860FileListing.DataSource = eia860Files2List;
+                        tbEia860FileListing.AutoResizeColumns();
+                        break;
 
-                tbPublicFileListing.DataSource = files2List;
-                tbPublicFileListing.AutoResizeColumns();
+                    default:
+                        break;
+                }
             }
             catch (Exception e)
             {
@@ -95,6 +125,7 @@ namespace DatabaseBuilder
             finally
             {
                 tbPublicFileListing.UseWaitCursor = false;
+                tbEia860Files.UseWaitCursor = false;
             }
 
         }
@@ -142,6 +173,11 @@ namespace DatabaseBuilder
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void lblBaseDir_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
