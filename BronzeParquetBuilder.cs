@@ -3,9 +3,9 @@
  * Author: Eric C. Grasby, MSIQ
  * Contact: ecgrasby@ualr.edu
  *
- * Class Name: FileItem
+ * Class Name: BronzeParquetBuilder
  *
- * Description: Generic FileItem used for filling a data grid on the main from
+ * Description: Parquet-file builder for the bronze layer of the medallion data architecture
  *
  * License: GPL-3.0-or-later
  * 
@@ -17,11 +17,14 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class FileItem
+namespace DatabaseBuilder
 {
-    public required string FileName { get; set; }
-    public required string FullPath { get; set; }
-
-    public string FileDate { get; set; }
+    internal class BronzeParquetBuilder
+    {
+    }
 }

@@ -1,3 +1,21 @@
+/*
+ * Project: DatabaseBuilder
+ * Author: Eric C. Grasby, MSIQ
+ * Contact: ecgrasby@ualr.edu
+ *
+ * Class Name: Form1
+ *
+ * Description: Code to support main program operations from Form1.cs
+ *
+ * License: GPL-3.0-or-later
+ * 
+ * This file is used as a utility in support of the author's dissertation work:
+ * "A Domain-Specific Language Approach to Monitoring and Surveillance Operations Within Wholesale Electricity Markets"
+ * It is distributed under the GNU General Public License v3.0 (GPL-3.0-or-later).
+ * You should have received a copy of the GPL along with this project.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 namespace DatabaseBuilder
 {
 
@@ -44,23 +62,15 @@ namespace DatabaseBuilder
 
         private void btnFetchFileListings_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Base path is: " + txtBasePath.Text.Trim());
             List<String> directories = FolderUtilities.GetAllFileDirectories(txtBasePath.Text.Trim());
             string output = string.Empty;
             foreach (String directory in directories)
             {
                 output += directory + "\n";
             }
-            //MessageBox.Show(output);
 
-            this.pubFiles = FolderUtilities.GetAllPublicCsvFiles();
+            this.pubFiles = FolderUtilities.GetAllPublicCsvFiles(directories);
             this.fillFolderListing();
-
-            /* Clean up the static FolderUtilities class */
-            FolderUtilities.dirs.Clear();
-            FolderUtilities.files.Clear();
-
-
         }
 
         private void fillFolderListing()

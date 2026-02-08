@@ -1,11 +1,11 @@
-﻿/*
+/*
  * Project: DatabaseBuilder
  * Author: Eric C. Grasby, MSIQ
  * Contact: ecgrasby@ualr.edu
  *
- * Class Name: FileItem
+ * Class Name: $safeitemname$
  *
- * Description: Generic FileItem used for filling a data grid on the main from
+ * Description: ###----REPLACE-HERE-BY-PROGRAMMER------###
  *
  * License: GPL-3.0-or-later
  * 
@@ -15,13 +15,10 @@
  * You should have received a copy of the GPL along with this project.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-
-using System;
-
-public class FileItem
+ namespace $rootnamespace$
 {
-    public required string FileName { get; set; }
-    public required string FullPath { get; set; }
-
-    public string FileDate { get; set; }
+    public class $safeitemname$
+    {
+		
+    }
 }

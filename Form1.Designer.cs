@@ -1,4 +1,22 @@
-﻿namespace DatabaseBuilder
+﻿/*
+ * Project: DatabaseBuilder
+ * Author: Eric C. Grasby, MSIQ
+ * Contact: ecgrasby@ualr.edu
+ *
+ * Class Name: Form1.Designer
+ *
+ * Description: Code-behind for main program form
+ *
+ * License: GPL-3.0-or-later
+ * 
+ * This file is used as a utility in support of the author's dissertation work:
+ * "A Domain-Specific Language Approach to Monitoring and Surveillance Operations Within Wholesale Electricity Markets"
+ * It is distributed under the GNU General Public License v3.0 (GPL-3.0-or-later).
+ * You should have received a copy of the GPL along with this project.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+namespace DatabaseBuilder
 {
     partial class Form1
     {
