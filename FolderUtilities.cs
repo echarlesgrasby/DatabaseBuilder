@@ -47,7 +47,11 @@ public static class FolderUtilities
             MessageBox.Show(e.Message);
             return new List<string>();
         }
-
+        catch(DirectoryNotFoundException d)
+        {
+            MessageBox.Show(d.Message);
+            return new List<string>();
+        }
         return dirs;
     }
 

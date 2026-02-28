@@ -53,12 +53,16 @@ namespace DatabaseBuilder
             infoToolStripMenuItem = new ToolStripMenuItem();
             applicationInfoToolStripMenuItem = new ToolStripMenuItem();
             citationToolStripMenuItem = new ToolStripMenuItem();
+            viewLogToolStripMenuItem = new ToolStripMenuItem();
             tbControl = new TabControl();
             tbFiles = new TabPage();
             tbPublicFileListing = new DataGridView();
             tbEia860Files = new TabPage();
+            tbEia860FileListing = new DataGridView();
             tbWeatherFiles = new TabPage();
-            label5 = new Label();
+            tbWeatherFileListing = new DataGridView();
+            tbEia923FileListing = new TabPage();
+            tbEia923Files = new DataGridView();
             btnFetchFileListings = new Button();
             txtBasePathSpp = new TextBox();
             panel1 = new Panel();
@@ -78,29 +82,39 @@ namespace DatabaseBuilder
             txtBasePathBronze = new TextBox();
             label1 = new Label();
             grbRawLayer = new GroupBox();
+            label8 = new Label();
+            label7 = new Label();
+            txtBasePathWeather = new TextBox();
+            txtBasePathEia923 = new TextBox();
+            label6 = new Label();
+            label4 = new Label();
             txtBasePathEia860 = new TextBox();
             lblBaseDir = new Label();
-            tbEia860FileListing = new DataGridView();
+            pnlStatsSummary = new Panel();
+            btnRawStatistics = new Button();
             menuStrip1.SuspendLayout();
             tbControl.SuspendLayout();
             tbFiles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tbPublicFileListing).BeginInit();
             tbEia860Files.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tbEia860FileListing).BeginInit();
             tbWeatherFiles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tbWeatherFileListing).BeginInit();
+            tbEia923FileListing.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tbEia923Files).BeginInit();
             panel1.SuspendLayout();
             grbGoldLayer.SuspendLayout();
             grbSilverLayer.SuspendLayout();
             grbBronzeLayer.SuspendLayout();
             grbRawLayer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tbEia860FileListing).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, infoToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, infoToolStripMenuItem, viewLogToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1227, 24);
+            menuStrip1.Size = new Size(1888, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -145,17 +159,25 @@ namespace DatabaseBuilder
             citationToolStripMenuItem.Text = "Citation";
             citationToolStripMenuItem.Click += citationToolStripMenuItem_Click;
             // 
+            // viewLogToolStripMenuItem
+            // 
+            viewLogToolStripMenuItem.Name = "viewLogToolStripMenuItem";
+            viewLogToolStripMenuItem.Size = new Size(67, 20);
+            viewLogToolStripMenuItem.Text = "View Log";
+            viewLogToolStripMenuItem.Click += viewLogToolStripMenuItem_Click;
+            // 
             // tbControl
             // 
             tbControl.AccessibleName = "";
             tbControl.Controls.Add(tbFiles);
             tbControl.Controls.Add(tbEia860Files);
             tbControl.Controls.Add(tbWeatherFiles);
-            tbControl.Location = new Point(12, 289);
+            tbControl.Controls.Add(tbEia923FileListing);
+            tbControl.Location = new Point(12, 357);
             tbControl.Name = "tbControl";
             tbControl.SelectedIndex = 0;
-            tbControl.Size = new Size(1203, 480);
-            tbControl.TabIndex = 2;
+            tbControl.Size = new Size(1333, 633);
+            tbControl.TabIndex = 4;
             // 
             // tbFiles
             // 
@@ -163,7 +185,7 @@ namespace DatabaseBuilder
             tbFiles.Location = new Point(4, 24);
             tbFiles.Name = "tbFiles";
             tbFiles.Padding = new Padding(3);
-            tbFiles.Size = new Size(1195, 452);
+            tbFiles.Size = new Size(1325, 605);
             tbFiles.TabIndex = 0;
             tbFiles.Text = "Public Files (SPP)";
             tbFiles.UseVisualStyleBackColor = true;
@@ -175,7 +197,7 @@ namespace DatabaseBuilder
             tbPublicFileListing.Location = new Point(3, 3);
             tbPublicFileListing.Name = "tbPublicFileListing";
             tbPublicFileListing.ReadOnly = true;
-            tbPublicFileListing.Size = new Size(1189, 446);
+            tbPublicFileListing.Size = new Size(1319, 599);
             tbPublicFileListing.TabIndex = 0;
             // 
             // tbEia860Files
@@ -184,35 +206,67 @@ namespace DatabaseBuilder
             tbEia860Files.Location = new Point(4, 24);
             tbEia860Files.Name = "tbEia860Files";
             tbEia860Files.Padding = new Padding(3);
-            tbEia860Files.Size = new Size(1195, 452);
+            tbEia860Files.Size = new Size(1325, 605);
             tbEia860Files.TabIndex = 1;
             tbEia860Files.Text = "EIA 860 Files";
             tbEia860Files.UseVisualStyleBackColor = true;
             // 
+            // tbEia860FileListing
+            // 
+            tbEia860FileListing.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tbEia860FileListing.Dock = DockStyle.Fill;
+            tbEia860FileListing.Location = new Point(3, 3);
+            tbEia860FileListing.Name = "tbEia860FileListing";
+            tbEia860FileListing.ReadOnly = true;
+            tbEia860FileListing.Size = new Size(1319, 599);
+            tbEia860FileListing.TabIndex = 1;
+            // 
             // tbWeatherFiles
             // 
-            tbWeatherFiles.Controls.Add(label5);
+            tbWeatherFiles.Controls.Add(tbWeatherFileListing);
             tbWeatherFiles.Location = new Point(4, 24);
             tbWeatherFiles.Name = "tbWeatherFiles";
             tbWeatherFiles.Padding = new Padding(3);
-            tbWeatherFiles.Size = new Size(1195, 452);
+            tbWeatherFiles.Size = new Size(1325, 605);
             tbWeatherFiles.TabIndex = 2;
             tbWeatherFiles.Text = "Weather Data (SPP)";
             tbWeatherFiles.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // tbWeatherFileListing
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(20, 20);
-            label5.Name = "label5";
-            label5.Size = new Size(332, 15);
-            label5.TabIndex = 0;
-            label5.Text = "Weather Data covering the SPP footprint should be listed here";
+            tbWeatherFileListing.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tbWeatherFileListing.Dock = DockStyle.Fill;
+            tbWeatherFileListing.Location = new Point(3, 3);
+            tbWeatherFileListing.Name = "tbWeatherFileListing";
+            tbWeatherFileListing.ReadOnly = true;
+            tbWeatherFileListing.Size = new Size(1319, 599);
+            tbWeatherFileListing.TabIndex = 3;
+            // 
+            // tbEia923FileListing
+            // 
+            tbEia923FileListing.Controls.Add(tbEia923Files);
+            tbEia923FileListing.Location = new Point(4, 24);
+            tbEia923FileListing.Name = "tbEia923FileListing";
+            tbEia923FileListing.Padding = new Padding(3);
+            tbEia923FileListing.Size = new Size(1325, 605);
+            tbEia923FileListing.TabIndex = 3;
+            tbEia923FileListing.Text = "EIA 923 Files";
+            tbEia923FileListing.UseVisualStyleBackColor = true;
+            // 
+            // tbEia923Files
+            // 
+            tbEia923Files.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tbEia923Files.Dock = DockStyle.Fill;
+            tbEia923Files.Location = new Point(3, 3);
+            tbEia923Files.Name = "tbEia923Files";
+            tbEia923Files.ReadOnly = true;
+            tbEia923Files.Size = new Size(1319, 599);
+            tbEia923Files.TabIndex = 2;
             // 
             // btnFetchFileListings
             // 
             btnFetchFileListings.ForeColor = SystemColors.ActiveCaptionText;
-            btnFetchFileListings.Location = new Point(6, 175);
+            btnFetchFileListings.Location = new Point(6, 261);
             btnFetchFileListings.Name = "btnFetchFileListings";
             btnFetchFileListings.Size = new Size(121, 23);
             btnFetchFileListings.TabIndex = 0;
@@ -222,9 +276,9 @@ namespace DatabaseBuilder
             // 
             // txtBasePathSpp
             // 
-            txtBasePathSpp.Location = new Point(6, 63);
+            txtBasePathSpp.Location = new Point(6, 93);
             txtBasePathSpp.Name = "txtBasePathSpp";
-            txtBasePathSpp.Size = new Size(268, 23);
+            txtBasePathSpp.Size = new Size(213, 23);
             txtBasePathSpp.TabIndex = 1;
             txtBasePathSpp.Text = "D:\\pub_data_archive\\raw\r\n";
             // 
@@ -237,7 +291,7 @@ namespace DatabaseBuilder
             panel1.Controls.Add(grbRawLayer);
             panel1.Location = new Point(12, 27);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1196, 240);
+            panel1.Size = new Size(1333, 324);
             panel1.TabIndex = 3;
             // 
             // grbGoldLayer
@@ -247,12 +301,12 @@ namespace DatabaseBuilder
             grbGoldLayer.Controls.Add(btnListGoldFiles);
             grbGoldLayer.Controls.Add(txtBasePathGold);
             grbGoldLayer.Controls.Add(label3);
-            grbGoldLayer.Location = new Point(899, 12);
+            grbGoldLayer.Location = new Point(1039, 12);
             grbGoldLayer.Name = "grbGoldLayer";
             grbGoldLayer.Size = new Size(278, 209);
             grbGoldLayer.TabIndex = 4;
             grbGoldLayer.TabStop = false;
-            grbGoldLayer.Text = "Silver Layer";
+            grbGoldLayer.Text = "Gold Layer";
             // 
             // btnRebuildGoldLayer
             // 
@@ -303,7 +357,7 @@ namespace DatabaseBuilder
             grbSilverLayer.Controls.Add(btnListSilverFiles);
             grbSilverLayer.Controls.Add(txtBasePathSilver);
             grbSilverLayer.Controls.Add(label2);
-            grbSilverLayer.Location = new Point(600, 12);
+            grbSilverLayer.Location = new Point(741, 12);
             grbSilverLayer.Name = "grbSilverLayer";
             grbSilverLayer.Size = new Size(281, 209);
             grbSilverLayer.TabIndex = 3;
@@ -359,7 +413,7 @@ namespace DatabaseBuilder
             grbBronzeLayer.Controls.Add(btnListBronzeFiles);
             grbBronzeLayer.Controls.Add(txtBasePathBronze);
             grbBronzeLayer.Controls.Add(label1);
-            grbBronzeLayer.Location = new Point(303, 12);
+            grbBronzeLayer.Location = new Point(442, 12);
             grbBronzeLayer.Name = "grbBronzeLayer";
             grbBronzeLayer.Size = new Size(281, 209);
             grbBronzeLayer.TabIndex = 2;
@@ -412,6 +466,13 @@ namespace DatabaseBuilder
             // grbRawLayer
             // 
             grbRawLayer.BackColor = Color.Azure;
+            grbRawLayer.Controls.Add(btnRawStatistics);
+            grbRawLayer.Controls.Add(label8);
+            grbRawLayer.Controls.Add(label7);
+            grbRawLayer.Controls.Add(txtBasePathWeather);
+            grbRawLayer.Controls.Add(txtBasePathEia923);
+            grbRawLayer.Controls.Add(label6);
+            grbRawLayer.Controls.Add(label4);
             grbRawLayer.Controls.Add(txtBasePathEia860);
             grbRawLayer.Controls.Add(lblBaseDir);
             grbRawLayer.Controls.Add(txtBasePathSpp);
@@ -419,17 +480,69 @@ namespace DatabaseBuilder
             grbRawLayer.ForeColor = SystemColors.ActiveCaptionText;
             grbRawLayer.Location = new Point(7, 12);
             grbRawLayer.Name = "grbRawLayer";
-            grbRawLayer.Size = new Size(280, 209);
+            grbRawLayer.Size = new Size(419, 290);
             grbRawLayer.TabIndex = 1;
             grbRawLayer.TabStop = false;
             grbRawLayer.Text = "Source Raw Layer";
             grbRawLayer.Enter += groupBox1_Enter;
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(8, 202);
+            label8.Name = "label8";
+            label8.Size = new Size(98, 15);
+            label8.TabIndex = 6;
+            label8.Text = "Weather Provider";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(8, 164);
+            label7.Name = "label7";
+            label7.Size = new Size(45, 15);
+            label7.TabIndex = 8;
+            label7.Text = "EIA 923";
+            // 
+            // txtBasePathWeather
+            // 
+            txtBasePathWeather.Location = new Point(6, 218);
+            txtBasePathWeather.Name = "txtBasePathWeather";
+            txtBasePathWeather.Size = new Size(213, 23);
+            txtBasePathWeather.TabIndex = 7;
+            txtBasePathWeather.Text = "D:\\pub_data_archive\\weather_data\r\n";
+            // 
+            // txtBasePathEia923
+            // 
+            txtBasePathEia923.Location = new Point(6, 176);
+            txtBasePathEia923.Name = "txtBasePathEia923";
+            txtBasePathEia923.Size = new Size(213, 23);
+            txtBasePathEia923.TabIndex = 6;
+            txtBasePathEia923.Text = "D:\\pub_data_archive\\raw_eia923\r\n";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(8, 120);
+            label6.Name = "label6";
+            label6.Size = new Size(45, 15);
+            label6.TabIndex = 5;
+            label6.Text = "EIA 860";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(8, 72);
+            label4.Name = "label4";
+            label4.Size = new Size(55, 15);
+            label4.TabIndex = 4;
+            label4.Text = "SPP RAW";
+            // 
             // txtBasePathEia860
             // 
-            txtBasePathEia860.Location = new Point(6, 93);
+            txtBasePathEia860.Location = new Point(6, 138);
             txtBasePathEia860.Name = "txtBasePathEia860";
-            txtBasePathEia860.Size = new Size(268, 23);
+            txtBasePathEia860.Size = new Size(213, 23);
             txtBasePathEia860.TabIndex = 3;
             txtBasePathEia860.Text = "D:\\pub_data_archive\\raw_eia860\r\n";
             // 
@@ -446,21 +559,30 @@ namespace DatabaseBuilder
             lblBaseDir.Text = "Base Archive Directories";
             lblBaseDir.Click += lblBaseDir_Click;
             // 
-            // tbEia860FileListing
+            // pnlStatsSummary
             // 
-            tbEia860FileListing.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tbEia860FileListing.Dock = DockStyle.Fill;
-            tbEia860FileListing.Location = new Point(3, 3);
-            tbEia860FileListing.Name = "tbEia860FileListing";
-            tbEia860FileListing.ReadOnly = true;
-            tbEia860FileListing.Size = new Size(1189, 446);
-            tbEia860FileListing.TabIndex = 1;
+            pnlStatsSummary.Location = new Point(1369, 384);
+            pnlStatsSummary.Name = "pnlStatsSummary";
+            pnlStatsSummary.Size = new Size(507, 599);
+            pnlStatsSummary.TabIndex = 5;
+            // 
+            // btnRawStatistics
+            // 
+            btnRawStatistics.ForeColor = SystemColors.ActiveCaptionText;
+            btnRawStatistics.Location = new Point(144, 261);
+            btnRawStatistics.Name = "btnRawStatistics";
+            btnRawStatistics.Size = new Size(121, 23);
+            btnRawStatistics.TabIndex = 9;
+            btnRawStatistics.Text = "Generate Statistics";
+            btnRawStatistics.UseVisualStyleBackColor = true;
+            btnRawStatistics.Click += btnRawStatistics_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1227, 781);
+            ClientSize = new Size(1888, 1002);
+            Controls.Add(pnlStatsSummary);
             Controls.Add(panel1);
             Controls.Add(tbControl);
             Controls.Add(menuStrip1);
@@ -474,8 +596,11 @@ namespace DatabaseBuilder
             tbFiles.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)tbPublicFileListing).EndInit();
             tbEia860Files.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)tbEia860FileListing).EndInit();
             tbWeatherFiles.ResumeLayout(false);
-            tbWeatherFiles.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tbWeatherFileListing).EndInit();
+            tbEia923FileListing.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)tbEia923Files).EndInit();
             panel1.ResumeLayout(false);
             grbGoldLayer.ResumeLayout(false);
             grbGoldLayer.PerformLayout();
@@ -485,7 +610,6 @@ namespace DatabaseBuilder
             grbBronzeLayer.PerformLayout();
             grbRawLayer.ResumeLayout(false);
             grbRawLayer.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)tbEia860FileListing).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -524,8 +648,19 @@ namespace DatabaseBuilder
         private Button btnRebuildBronzeLayer;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem exitToolStripMenuItem;
-        private Label label5;
         private TextBox txtBasePathEia860;
         private DataGridView tbEia860FileListing;
+        private Label label6;
+        private Label label4;
+        private TabPage tbEia923FileListing;
+        private DataGridView tbEia923Files;
+        private TextBox txtBasePathWeather;
+        private TextBox txtBasePathEia923;
+        private Label label8;
+        private Label label7;
+        private DataGridView tbWeatherFileListing;
+        private Panel pnlStatsSummary;
+        private ToolStripMenuItem viewLogToolStripMenuItem;
+        private Button btnRawStatistics;
     }
 }
